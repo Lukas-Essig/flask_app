@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} Home
+{% endblock %}
+
+{% block content %}
+<html>
+    
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div id="image">
+            <img src="static/img/newview.jpg" alt="Image of Traveller">
+            <div class="imageborders">
+                <img src="static/img/why.jpg" alt="Why we created Camp4Free"> 
+                <img src="static/img/philosophy.jpg" alt="Our Philosophy"> 
+                <img src="static/img/host.jpg" alt="Explanation of Host"> 
+                <img src="static/img/traveller.jpg" alt="Explanation of Traveller"> 
+            </div>
+        </div>
+
+    </body>
+
+</html>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

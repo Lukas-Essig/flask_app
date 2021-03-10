@@ -1,0 +1,463 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: sans-serif;
+}
+
+/* base.html */
+
+#top {
+    text-align: center;
+}
+
+#logo {
+    display: inline-block; 
+    margin-top: 16px;
+}
+
+#logo img {
+    height: 101.55px;
+    width: 138px;
+    transform: rotate(348deg);
+}
+
+#logo-name {
+    font-size: 32px;
+    color: rgb(7, 18, 44);
+    margin-bottom: 16px;
+}
+
+.menu-bar {
+    background-color:rgb(238, 238, 238);
+    text-align: center;
+    border-top: solid 1px rgb(190, 190, 190);
+    border-bottom: solid 1px rgb(190, 190, 190);
+}
+
+.menu-bar ul {
+    display: inline-flex;
+    list-style: none;
+    color: rgb(7, 18, 44);
+}
+
+.menu-bar ul li {
+    width: 150px;
+    margin: 15px;
+    margin-bottom: 0px;
+    padding: 15px;
+}
+
+.menu-bar ul li a {
+    text-decoration: none;
+    color: rgb(7, 18, 44);
+}
+
+.menu-bar ul li:hover {
+    background: rgb(202, 202, 202);
+    border-radius: 34px;
+}
+
+.menu-bar .fa {
+    margin-right: 8px;
+}
+
+.sub-menu-1 {
+    display: none;
+    color: #2196F3;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1 {
+    display: block;
+    position: absolute;
+    margin-left: -15px;
+    padding-top: 10px;
+    z-index: 8;
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul {
+    display: block;
+    margin: 10px;
+    z-index: 9;
+    
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li {
+    width: 150px;
+    text-align: left;
+    margin-right: 50px;
+    margin-left: -10px;
+    z-index: 10;
+    border-radius: 34px;
+    margin-top: 5px;
+    background: rgb(207, 207, 207);
+    border: solid 1px rgb(190, 190, 190);
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li a:hover {
+    z-index: 11;
+}
+
+/* index.html */
+
+#image img {
+    width: 100%;
+}
+
+.imageborders {
+    margin: 30px;
+}
+
+.imageborders img {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 20px;
+}
+
+.footer {
+    text-align: center;
+    color: grey;
+    padding: 16px;
+}
+
+
+/* signup.html */
+
+.signupblock {
+    margin: 30px;
+}
+
+.signupblock h5 {
+    margin-top: 30px;
+}
+
+/* login.html */
+
+.loginblock {
+    margin: 30px;
+}
+
+.updateuserblock {
+    margin: 30px;
+}
+
+.loginblock small {
+    margin: 15px;
+}
+
+.loginblock h6 {
+    margin-bottom: 30px;
+}
+
+
+/* contact.html */
+
+.contact-overview {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+
+/* user.html */
+
+.user_page {
+    margin: 16px;
+}
+
+.user_page h4 {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.hostortraveller {
+    background-color: #2196F3;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 34px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.hostortraveller:hover {
+    background-color: #005dc7;
+}
+
+.hostblock {
+    margin: 30px;
+}
+
+.hostblock div {
+    margin-bottom: 20px;
+}
+
+.hostblock h5 {
+    margin-top: 30px;
+}
+
+.travellerblock {
+    margin: 30px;
+}
+
+.travellerblock div {
+    margin-bottom: 20px;
+}
+
+.user-bar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: rgb(37, 37, 37);
+    position: relative;
+}
+
+.account-img {
+    height: 100px;
+    width: 100px;
+    margin-right: 20px;
+}
+
+.user-bar-heading {
+    font-size: 2.5rem;
+}
+
+.account-overview {
+    margin-bottom: 20px;
+}
+
+.edit {
+    background-color: #2196F3;
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 34px;
+    margin-bottom: 10px;
+}
+
+
+
+img {
+    image-orientation: from-image;
+}
+
+/* Article */
+
+article {
+    padding: 10px 20px;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    margin: 20px;
+    color: #8d8d8d
+}
+
+article h5 {
+    color: #444444;
+}
+
+article li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.article-title {
+    color: #444444;
+  }
+  
+.article-title:hover {
+    text-decoration: none;
+  }
+  
+.article-content {
+    white-space: pre-line;
+    margin-top: 10px;
+
+}
+
+#content {
+    border-bottom: 1px solid #e3e3e3;
+}
+  
+.article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+}
+  
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+#metadata {
+    border-bottom: 0px solid #e3e3e3;
+}
+  
+.article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.offerings li {
+      list-style: none;
+      margin-bottom: 10px;
+      display:inline-block;
+}
+
+.spacefor li {
+    list-style: none;
+    margin-right: 5px;
+    display:inline-block;
+}
+
+.signup_forgot {
+      margin-left: 20px;
+}
+
+.travellerblock h5 {
+    margin-top: 20px;
+}
+
+
+/* Slider */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-top: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: #2196F3;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+  
+
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.listing {
+      margin-left: 20px;
+      margin-right: 20px;
+}
+
+/* profile picture */
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: rgba(255, 255, 255, 0);
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+.inputfile:focus + label,
+.inputfile + label:hover strong {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inputfile + label {
+	cursor: pointer;
+}
+
+.inputfile + label * {
+	pointer-events: none;
+}
+
+#delete-profile-pic {
+    margin-top: 10px;
+}
+
+/* find_host.html */
+
+.search input + button {
+    display: inline;
+}
+
+#searchbar {
+    border-radius: 34px;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 30%;
+}
+
+.resetblock {
+    margin: 20px;
+}

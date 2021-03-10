@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Find Host{% endblock %}
+{% block content %}
+<form method="GET" action="search">
+  <div class="search">
+    <input style="display: inline; text-transform: capitalize" type="text" class="form-control" id="searchbar" name="searchbar" placeholder="Search City, Country, Title...">
+    <button type="submit" class="edit">Search</button> 
+    <a href="{{ url_for('views.find_host') }}"><button name="show_all" type="button" value="show_all" class="edit" >Show All</button></a>
+  </div>
+</form>
+
+    {% for host in hosts.items %}
+      {% if host.on_off == "On" %}
+          <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + host.provider.image_file) }}">
+            <div class="media-body">
+              <div class="article-metadata">Stay with {{ host.provider.firstname }} in {{ host.city }}, {{ host.country }}
+                <small class="text-muted" style="float: right">Host since {{ host.date.strftime('%Y-%m-%d') }}</small>
+              </div>
+              <h2><a class="article-title" href="{{ url_for('views.specific_host', host_id=host.id) }}">{{ host.title }}</a></h2>
+              <div class="offerings">
+                {% if host.h_toilet == "Yes" %}
+                <li>Toilet | </li>
+                {% endif %}
+                {% if host.h_shower == "Yes" %}
+                <li>Shower | </li>
+                {% endif %}
+                {% if host.h_washingmachine == "Yes" %}
+                <li>Washing Machine | </li>
+                {% endif %}
+                {% if host.h_water == "Yes" %}
+                <li>Tab Water | </li>
+                {% endif %}
+                {% if host.h_trash == "Yes" %}
+                <li>Trash Disposal | </li>
+                {% endif %}
+              </div>
+              <div class="spacefor">
+                  <li>{{ host.maximumpeople }} <i class="fas fa-male"></i></li>
+                  {% if host.h_tent == "Yes" %}
+                  <li><i class="fas fa-campground"></i></li>
+                  {% endif %}
+                  {% if host.h_car == "Yes" %}
+                  <li><i class="fas fa-car"></i></li>
+                  {% endif %}
+                  {% if host.h_cartrailer == "Yes" %}
+                  <li><i class="fas fa-caravan"></i></li>
+                  {% endif %}
+                  {% if host.h_motorhome == "Yes" %}
+                  <li><i class="fas fa-truck"></i></li>
+                  {% endif %}
+              </div>
+            </div>
+          </article>
+        {% endif %}
+    {% endfor %}
+
+    <div class="listing">
+    {% for page_num in hosts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+            {% if hosts.page == page_num %}
+              <a class="btn btn-info mb-4" href="{{ url_for ('views.find_host', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+              <a class="btn btn-outline-info mb-4" href="{{ url_for ('views.find_host', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+          {% else %}
+          {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock%}

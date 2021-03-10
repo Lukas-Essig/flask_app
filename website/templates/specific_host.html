@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}{{ host.provider.firstname }}{% endblock %}
+{% block content %}
+
+<div class="specific-host">
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + host.provider.image_file) }}">
+        <div class="media-body">
+        <div class="article-metadata">Stay with {{ host.provider.firstname }} in {{ host.city }}, {{ host.country }}
+            <small class="text-muted" style="float: right">Host since {{ host.date.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <h2 class="article-title" style="display: inline;">{{ host.title }}</h2>
+        <form method='GET' action='contact_mail'>
+            <button style="float: right;" type="button" value="contactuser" class="edit" data-toggle="modal" data-target="#sendMailModal">Contact</button>
+        </form>
+        <div class="offerings">
+            {% if host.h_toilet == "Yes" %}
+            <li>Toilet | </li>
+            {% endif %}
+            {% if host.h_shower == "Yes" %}
+            <li>Shower | </li>
+            {% endif %}
+            {% if host.h_washingmachine == "Yes" %}
+            <li>Washing Machine | </li>
+            {% endif %}
+            {% if host.h_water == "Yes" %}
+            <li>Tab Water | </li>
+            {% endif %}
+            {% if host.h_trash == "Yes" %}
+            <li>Trash Disposal | </li>
+            {% endif %}
+        </div>
+        <div class="spacefor">
+            <li>{{ host.maximumpeople }} <i class="fas fa-male"></i></li>
+            {% if host.h_tent == "Yes" %}
+            <li><i class="fas fa-campground"></i></li>
+            {% endif %}
+            {% if host.h_car == "Yes" %}
+            <li><i class="fas fa-car"></i></li>
+            {% endif %}
+            {% if host.h_cartrailer == "Yes" %}
+            <li><i class="fas fa-caravan"></i></li>
+            {% endif %}
+            {% if host.h_motorhome == "Yes" %}
+            <li><i class="fas fa-truck"></i></li>
+            {% endif %}
+        </div>
+        <p class="article-content">{{ host.h_note }}</p>
+        </div>
+    </article>
+</div>
+
+<div class="modal fade" id="sendMailModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Contact</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <p style='margin:20px;'>An Email with your contact details will be sent to the Host!</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{{ url_for('views.send_contact_email', host_user_id=host.user_id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Send Email">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

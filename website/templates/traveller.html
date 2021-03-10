@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Traveller{% endblock %}
+
+{% block content %}
+<form method="POST">
+
+  <div class="travellerblock">
+
+    <h5>I/We have...</h5>
+
+    <div class="form-group">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_tent" value="Yes" name="t_tent">
+        <label class="form-check-label" for="t_tent">Tent</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_car" value="Yes" name="t_car">
+        <label class="form-check-label" for="t_car">Car</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_cartrailer" value="Yes" name="t_cartrailer">
+        <label class="form-check-label" for="t_cartrailer">Car with Trailer</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_motorhome" value="Yes" name="t_motorhome">
+        <label class="form-check-label" for="t_motorhome">Motorhome</label>
+      </div>
+    </div>
+
+    <h5>How many people are you in total?</h5>
+
+    <div class="form-row">
+        <div class="form-group col-md-1">
+            <input type="number" class="form-control" id="numberofpeople" name="numberofpeople" placeholder="e.g. 3">
+        </div>
+    </div>
+
+    <h5>What else do you need?</h5>
+
+    <div class="form-group">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_toilet" value="Yes" name="t_toilet">
+        <label class="form-check-label" for="t_toilet">Toilet</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_shower" value="Yes" name="t_shower">
+        <label class="form-check-label" for="t_shower">Shower</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="t_washingmachine" value="Yes" name="t_washingmachine">
+        <label class="form-check-label" for="t_washingmachine">Washing Machine</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="t_water" value="Yes" name="t_water">
+      <label class="form-check-label" for="t_water">Tab Water</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="t_trash" value="Yes" name="t_trash">
+      <label class="form-check-label" for="t_trash">Trash Disposal</label>
+    </div>
+
+    <div class="notesfield">
+      <h5>Is there anything left to say?</h5>
+      <textarea name="t_note" id="t_note" class="form-control" placeholder="Hello, I am {{ current_user.firstname }}..."></textarea>
+    </div>
+
+    <a href="#">
+        <button name="submitbutton" type="submit" class="edit">Submit</button>
+    </a>
+      
+  </div>
+</form>
+{% endblock %}

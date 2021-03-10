@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+
+<div class= "user_page">
+    <div class="user-bar">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="media-body">
+                <h2 class="user-bar-heading">Welcome {{ current_user.firstname }}!</h2>
+                {% if current_user.image_file != "default.jpeg" %}
+                <form method ="POST" action="/delete-profile-pic" enctype="multipart/form-data">
+                    <button type="submit" id="delete-profile-pic" class="edit" name="delete_profile_pic">Delete Profile Picture</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <form method ="POST" action="/update-profile-pic" enctype="multipart/form-data">
+            <div class="change_profile_pic">
+                <input name="profile_pic" type="file" id="profile_pic" class="inputfile" accept="image/*" onchange="this.form.submit()">
+                <label for="profile_pic" class="rounded-circle account-img"><strong>Change</strong></label>
+            </div>
+        </form>
+    </div>
+
+    <div class="account-overview">
+        <h4>Your Account</h4>
+
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata" id="metadata">You currently live in {{ user.countryresidence }}
+                <small class="text-muted" style="float: right">Account since {{ user.date.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2 class="article-title" >
+                {% if user.gender == "Male" %}
+                {{ user.firstname }} {{ user.surname }} (M), {{ user.age }}
+                {% elif user.gender == "Female" %}
+                {{ user.firstname }} {{ user.surname }} (F), {{ user.age }}
+                {% else %}
+                {{ user.firstname }} {{ user.surname }} (D), {{ user.age }}
+                {% endif %}
+            </h2>
+            <li><h5 class="article-title" >Your Email: {{ user.email }}</h5></li>
+            <li><h5 class="article-title" >Your Phone Number: {{ user.phonenumber }}</h5></li>
+            <p class="article-content">You speak: {{ user.language1 }} | {% if user.language2 == "None" %} {% else %} {{ user.language2 }} | {% endif %} {% if user.language3 == "None" %} {% else %} {{ user.language3 }} {% endif %}
+            </p>
+            <a href="{{ url_for('auth.updateuser') }}"><button name="edit" type="button" value="edit" class="edit" >Edit</button></a>
+            <button type="button" value="deleteuser" class="edit" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
+            </div>
+        </article>
+    </div>
+    
+    <form method ="POST">
+        {% if host1 and traveller1 %}
+        <div class ="currentlyBoth">
+            <h4>Host</h4>
+            
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata" id="metadata">Your spot is located in {{ host1.zipcode }}, {{ host1.city }}, {{ host1.country }} in {{ host1.street }} {{ host1.housenumber }}
+                    <small class="text-muted" style="float: right">Host since {{ host1.date.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <div style="float: right">
+                    <h6>{% if host1.on_off == "On" %} Visible {% else %} Invisible {% endif %}</h6>
+                    {% if host1.on_off == "On" %}
+                    <form id="on_off_button" action="">
+                    <label class="switch">
+                    <input type="checkbox" name="on_off" value="On" onChange="this.form.submit()" checked>
+                    <span class="slider round"></span>
+                    </label>
+                    </form>
+                    {% else %}
+                    <form id="on_off_button" action="">
+                    <label class="switch">
+                    <input type="checkbox" name="on_off" value="On" onChange="this.form.submit()">
+                    <span class="slider round"></span>
+                    </label>
+                    </form>
+                    {% endif %}
+                </div>
+                <h2 class="article-title" >{{ host1.title }}</h2>
+                <div class="offerings">
+                    {% if host1.h_toilet == "Yes" %}
+                    <li>Toilet | </li>
+                    {% endif %}
+                    {% if host1.h_shower == "Yes" %}
+                    <li>Shower | </li>
+                    {% endif %}
+                    {% if host1.h_washingmachine == "Yes" %}
+                    <li>Washing Machine | </li>
+                    {% endif %}
+                    {% if host1.h_water == "Yes" %}
+                    <li>Tab Water | </li>
+                    {% endif %}
+                    {% if host1.h_trash == "Yes" %}
+                    <li>Trash Disposal | </li>
+                    {% endif %}
+                </div>
+                <div class="spacefor">
+                    <li>{{ host1.maximumpeople }} <i class="fas fa-male"></i></li>
+                    {% if host1.h_tent == "Yes" %}
+                    <li><i class="fas fa-campground"></i></li>
+                    {% endif %}
+                    {% if host1.h_car == "Yes" %}
+                    <li><i class="fas fa-car"></i></li>
+                    {% endif %}
+                    {% if host1.h_cartrailer == "Yes" %}
+                    <li><i class="fas fa-caravan"></i></li>
+                    {% endif %}
+                    {% if host1.h_motorhome == "Yes" %}
+                    <li><i class="fas fa-truck"></i></li>
+                    {% endif %}
+                </div>
+                <p class="article-content">{{ host1.h_note }}</p>
+                <a href="{{ url_for('auth.updatehost') }}"><button name="edit2" type="button" value="edit2" class="edit" >Edit</button></a>
+                <button type="button" value="deletehost" class="edit" data-toggle="modal" data-target="#deleteHostModal">Delete</button>
+                </div>
+            </article>
+
+
+            <h4>Traveller</h4>
+
+
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata" id="metadata">
+                    <small class="text-muted" style="float: right"></small>
+                </div>
+                <div class="offerings">
+                    <h5>You need:</h5>
+                    {% if traveller1.t_toilet == "Yes" %}
+                    <li>Toilet | </li>
+                    {% endif %}
+                    {% if traveller1.t_shower == "Yes" %}
+                    <li>Shower | </li>
+                    {% endif %}
+                    {% if traveller1.t_washingmachine == "Yes" %}
+                    <li>Washing Machine | </li>
+                    {% endif %}
+                    {% if traveller1.t_water == "Yes" %}
+                    <li>Tab Water | </li>
+                    {% endif %}
+                    {% if traveller1.t_trash == "Yes" %}
+                    <li>Trash Disposal | </li>
+                    {% endif %}
+                </div>
+                <div class="spacefor">
+                    <h5>Information about you:</h5>
+                    <li>{{ traveller1.numberofpeople }} <i class="fas fa-male"></i></li>
+                    {% if traveller1.t_tent == "Yes" %}
+                    <li><i class="fas fa-campground"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_car == "Yes" %}
+                    <li><i class="fas fa-car"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_cartrailer == "Yes" %}
+                    <li><i class="fas fa-caravan"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_motorhome == "Yes" %}
+                    <li><i class="fas fa-truck"></i></li>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="article-content">{{ traveller1.t_note }}</p>
+                    <a href="{{ url_for('auth.updatetraveller') }}"><button name="edit3" type="button" value="edit3" class="edit" >Edit</button></a>
+                    <button type="button" value="deletetraveller" class="edit" data-toggle="modal" data-target="#deleteTravellerModal">Delete</button>
+                </div>
+            </article>
+        </div>
+
+        {% elif host1 %}
+        <div class= "currentlyHost">
+            <h4>Host</h4>
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata" id="metadata">Your spot is located in {{ host1.zipcode }}, {{ host1.city }}, {{ host1.country }} in {{ host1.street }} {{ host1.housenumber }}
+                    <small class="text-muted" style="float: right">Host since {{ host1.date.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <div style="float: right">
+                    <h6>{% if host1.on_off == "On" %} Visible {% else %} Invisible {% endif %}</h6>
+                    {% if host1.on_off == "On" %}
+                    <form id="on_off_button" action="">
+                    <label class="switch">
+                    <input type="checkbox" name="on_off" value="On" onChange="this.form.submit()" checked>
+                    <span class="slider round"></span>
+                    </label>
+                    </form>
+                    {% else %}
+                    <form id="on_off_button" action="">
+                    <label class="switch">
+                    <input type="checkbox" name="on_off" value="On" onChange="this.form.submit()">
+                    <span class="slider round"></span>
+                    </label>
+                    </form>
+                    {% endif %}
+                </div>
+                <h2 class="article-title" >{{ host1.title }}</h2>
+                <div class="offerings">
+                    {% if host1.h_toilet == "Yes" %}
+                    <li>Toilet | </li>
+                    {% endif %}
+                    {% if host1.h_shower == "Yes" %}
+                    <li>Shower | </li>
+                    {% endif %}
+                    {% if host1.h_washingmachine == "Yes" %}
+                    <li>Washing Machine | </li>
+                    {% endif %}
+                    {% if host1.h_water == "Yes" %}
+                    <li>Tab Water | </li>
+                    {% endif %}
+                    {% if host1.h_trash == "Yes" %}
+                    <li>Trash Disposal | </li>
+                    {% endif %}
+                </div>
+                <div class="spacefor">
+                    <li>{{ host1.maximumpeople }} <i class="fas fa-male"></i></li>
+                    {% if host1.h_tent == "Yes" %}
+                    <li><i class="fas fa-campground"></i></li>
+                    {% endif %}
+                    {% if host1.h_car == "Yes" %}
+                    <li><i class="fas fa-car"></i></li>
+                    {% endif %}
+                    {% if host1.h_cartrailer == "Yes" %}
+                    <li><i class="fas fa-caravan"></i></li>
+                    {% endif %}
+                    {% if host1.h_motorhome == "Yes" %}
+                    <li><i class="fas fa-truck"></i></li>
+                    {% endif %}
+                </div>
+                <p class="article-content">{{ host1.h_note }}</p>
+                <a href="{{ url_for('auth.updatehost') }}"><button name="edit2" type="button" value="edit2" class="edit" >Edit</button></a>
+                <button type="button" value="deletehost" class="edit" data-toggle="modal" data-target="#deleteHostModal">Delete</button>
+                </div>
+            </article>
+            <h4>Traveller</h4>
+            <a href="{{ url_for('auth.traveller') }}">
+            <button name="traveller1" type="button" value="traveller" class="hostortraveller">Become a Traveller</button>
+            </a>
+        </div>
+
+
+        {% elif traveller1 %}
+        <div class ="currentlyTraveller">
+            <h4>Traveller</h4>
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata" id="metadata">
+                    <small class="text-muted" style="float: right"></small>
+                </div>
+                <div class="offerings">
+                    <h5>You need:</h5>
+                    {% if traveller1.t_toilet == "Yes" %}
+                    <li>Toilet | </li>
+                    {% endif %}
+                    {% if traveller1.t_shower == "Yes" %}
+                    <li>Shower | </li>
+                    {% endif %}
+                    {% if traveller1.t_washingmachine == "Yes" %}
+                    <li>Washing Machine | </li>
+                    {% endif %}
+                    {% if traveller1.t_water == "Yes" %}
+                    <li>Tab Water | </li>
+                    {% endif %}
+                    {% if traveller1.t_trash == "Yes" %}
+                    <li>Trash Disposal | </li>
+                    {% endif %}
+                </div>
+                <div class="spacefor">
+                    <h5>Information about you:</h5>
+                    <li>{{ traveller1.numberofpeople }} <i class="fas fa-male"></i></li>
+                    {% if traveller1.t_tent == "Yes" %}
+                    <li><i class="fas fa-campground"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_car == "Yes" %}
+                    <li><i class="fas fa-car"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_cartrailer == "Yes" %}
+                    <li><i class="fas fa-caravan"></i></li>
+                    {% endif %}
+                    {% if traveller1.t_motorhome == "Yes" %}
+                    <li><i class="fas fa-truck"></i></li>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="article-content">{{ traveller1.t_note }}</p>
+                    <a href="{{ url_for('auth.updatetraveller') }}"><button name="edit3" type="button" value="edit3" class="edit" >Edit</button></a>
+                    <button type="button" value="deletetraveller" class="edit" data-toggle="modal" data-target="#deleteTravellerModal">Delete</button>
+                </div>
+            </article>
+            <h4>Host</h4>
+            <a href="{{ url_for('auth.host') }}">
+                <button name="host1" type="button" value="host" class="hostortraveller" >Become a Host</button>
+            </a>
+        </div>
+
+        {% else %}
+        <div class= "Host_or_Traveller">
+            <h4>Would you like to be a Host or a Traveller?</h4>
+            <a href="{{ url_for('auth.host') }}">
+            <button name="host1" type="button" value="host" class="hostortraveller" >Become a Host</button>
+            </a>
+            <a href="{{ url_for('auth.traveller') }}">
+            <button name="traveller1" type="button" value="traveller" class="hostortraveller">Become a Traveller</button>
+            </a>
+        </div>
+
+        {% endif %}
+    </form>
+
+    <!-- Modal User -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete User Account?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <p style='margin:20px;'>We are sad to hear that you don't want to stay with us anymore. All your data will be deleted!</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('auth.delete_user') }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Host -->
+    <div class="modal fade" id="deleteHostModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Host Account?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('auth.delete_host') }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Traveller -->
+    <div class="modal fade" id="deleteTravellerModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Traveller Account?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('auth.delete_traveller') }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock%}
